@@ -1,22 +1,43 @@
 package testScripts;
 
+import java.io.IOException;
+import java.time.Duration;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
+import org.testng.ITestResult;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.Test;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import utilitypackage.Screenshotutility;
 
 import facebookPageObjects.LoginPageObject;
 
-public class Basic_Test {
+public class Basic_Test extends GenericTestforall {
 
-	public static void main(String[] args) {
+	@Test
+	public void m1() throws IOException {
 		
-WebDriver driver=new ChromeDriver();
-
-driver.get("https://www.facebook.com/");
-
+		// launchandLogin();
+		 tryloginandgotoreg(); 
+		 doRegistarion(); 
+		 
+		 //Assert.assertTrue(false);
+		 }
 	
-LoginPageObject lpo=new LoginPageObject(driver);
-lpo.doLogin("email@gmail.com", "email12345");
-	}
-
+ @AfterMethod
+	 
+	 public void breakDown(ITestResult result) throws IOException {
+		 
+		 
+		 if(ITestResult.FAILURE==result.getStatus()) {
+			 
+			 Screenshotutility su=new Screenshotutility(driver);
+			 su.techScreenshot(driver); 
+		 }	
+ }
 }
